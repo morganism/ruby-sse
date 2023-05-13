@@ -17,9 +17,9 @@ Thread.new do
     fifo.close
 
     begin
-      connections.each do |out|
-        out << "event: #{j['event']}\n" if j.key?('event');
-        out << "data: #{j['data'].to_json}\n\n"
+      connections.each do |o|
+        qw(id event data).each { |k| o << "#{k}: #{j[k]}\n" if j.key?(k) }
+        o << "\n"
       end
     rescue Exception => e
       logger.error "Error sending SSE stream: #{e.message}"
@@ -28,7 +28,11 @@ Thread.new do
 end
 
 get '/' do
-  puts webpage
+  erb :default
+end
+
+get '/help' do
+  erb :help
 end
 
 get '/stream', provides: 'text/event-stream' do
