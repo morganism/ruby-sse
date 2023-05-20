@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<!--- In your Sinatra application, you can render this ERB file by setting the instance variables @message, @speed, @color, @brightness, and @loop according to your requirements.--->
+<html>
+<head>
+  <title>Message Ticker Example</title>
+  <style>
+    .message-ticker {
+      width: 400px;
+      height: 40px;
+      overflow: hidden;
+      border: 1px solid #ccc;
+    }
+
+    .message-ticker p {
+      display: inline-block;
+      white-space: nowrap;
+      padding-right: 100%;
+      animation: ticker-scroll 15s linear infinite;
+    }
+
+    @keyframes ticker-scroll {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); }
+    }
+  </style>
+</head>
+<body>
+  <div class="message-ticker">
+    <p id="ticker-text"><%= @message %></p>
+  </div>
+
+  <div>
+    <label for="speed">Speed:</label>
+    <input type="range" id="speed" min="1" max="10" step="1" value="<%= @speed %>" onchange="updateSpeed(this.value)">
+
+    <label for="color">Color:</label>
+    <input type="color" id="color" value="<%= @color %>" onchange="updateColor(this.value)">
+
+    <label for="brightness">Brightness:</label>
+    <input type="range" id="brightness" min="0" max="100" step="10" value="<%= @brightness %>" onchange="updateBrightness(this.value)">
+
+    <label for="loop">Loop:</label>
+    <input type="checkbox" id="loop" <%= @loop ? 'checked' : '' %> onchange="toggleLoop(this.checked)">
+  </div>
+
+  <script>
+    // Global variables to store ticker state
+    let tickerElement = document.getElementById('ticker-text');
+    let tickerAnimation = tickerElement.style.animation;
+    let tickerSpeed = <%= @speed %>;
+    let tickerColor = '<%= @color %>';
+    let tickerBrightness = <%= @brightness / 100.0 %>;
+    let tickerLoop = <%= @loop ? 'true' : 'false' %>;
+
+    // Function to update the ticker's speed
+    function updateSpeed(speed) {
+      tickerSpeed = speed;
+      tickerElement.style.animationDuration = (15 / speed) + 's';
+    }
+
+    // Function to update the ticker's color
+    function updateColor(color) {
+      tickerColor = color;
+      tickerElement.style.color = color;
+    }
+
+    // Function to update the ticker's brightness
+    function updateBrightness(brightness) {
+      tickerBrightness = brightness / 100;
+      tickerElement.style.filter = `brightness(${tickerBrightness})`;
+    }
+
+    // Function to toggle the ticker looping
+    function toggleLoop(loop) {
+      tickerLoop = loop;
+      tickerElement.style.animationIterationCount = loop ? 'infinite' : '1';
+    }
+
+    // Example usage to update the ticker dynamically
+    function updateTickerText() {
+      const newMessage = 'New ticker message';
+      tickerElement.textContent = newMessage;
+    }
+
+    // Initial settings
+    updateSpeed(tickerSpeed);
+    updateColor(tickerColor);
+    updateBrightness(tickerBrightness * 100);
+    toggleLoop(tickerLoop);
+  </script>
+</body>
+</html>
+

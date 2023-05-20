@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Sinatra App</title>
+  <link rel="stylesheet" type="text/css" href="/path/to/styles.css">
+  <script src="/path/to/script.js"></script>
+</head>
+<body>
+  <header>
+    <nav class="navigation-menu">
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <li><a href="/settings">Settings</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <div class="content">
+    <% if showGauges %>
+      <div class="gauges">
+        <!-- Render your gauges here -->
+      </div>
+    <% end %>
+    
+    <% if showCharts %>
+      <div class="charts">
+        <!-- Render your charts here -->
+      </div>
+    <% end %>
+    
+    <% if showTables %>
+      <div class="tables">
+        <!-- Render your tables here -->
+      </div>
+    <% end %>
+    
+    <% if showInteractiveComponents %>
+      <div class="interactive-components">
+        <h2>Interactive Components</h2>
+        
+        <div class="switches">
+          <!-- Render your switches here -->
+        </div>
+        
+        <div class="sliders">
+          <!-- Render your sliders here -->
+        </div>
+        
+        <div class="forms">
+          <!-- Render your forms here -->
+        </div>
+      </div>
+    <% end %>
+    
+    <% if showCharts %>
+      <div class="svg-graphics">
+        <!-- Render your SVG graphics here -->
+      </div>
+    <% end %>
+  </div>
+  
+  <div id="modal" class="modal">
+    <!-- Modal dialog configuration system -->
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var showGauges = <%= showGauges %>;
+      var showCharts = <%= showCharts %>;
+      var showTables = <%= showTables %>;
+      var showInteractiveComponents = <%= showInteractiveComponents %>;
+      
+      if (!showGauges) {
+        document.querySelector(".gauges").style.display = "none";
+      }
+      
+      if (!showCharts) {
+        document.querySelector(".charts").style.display = "none";
+      }
+      
+      if (!showTables) {
+        document.querySelector(".tables").style.display = "none";
+      }
+      
+      if (!showInteractiveComponents) {
+        document.querySelector(".interactive-components").style.display = "none";
+      }
+    });
+  </script>
+</body>
+</html>
+

@@ -3,21 +3,12 @@ require 'sinatra/streaming'
 require 'json'
 
 set :port, 1080
+set :root, File.dirname(__FILE__)
+set :public_folder, 'public'
 
 fifo_path = '/tmp/myfifo'
 File.mkfifo(fifo_path) unless File.exists?(fifo_path)
 connections = []
-
-class Logger
-	def self.info(msg)
-    puts msg
-	end
-
-	def self.error(msg)
-    puts msg
-	end
-end
-logger = Logger.new
 
 Thread.new do
   loop do
@@ -33,7 +24,7 @@ Thread.new do
         out << "data: #{message['data'].to_json}\n\n" if message.key? 'data'
       end
     rescue Exception => e
-      logger.error "Error sending SSE stream: #{e.message}"
+      puts "Error sending SSE stream: #{e.message}"
     end
   end
 end
@@ -55,5 +46,9 @@ end
 
 get '/help' do
   erb :help
+end
+
+get '/chart' do
+  erb :chart
 end
 

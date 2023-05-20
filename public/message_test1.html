@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Message div</title>
+  <style>
+     .serverDatax {
+       background-color: blue;
+     }
+
+     .gray { background-color: rgb(137, 137, 137)};
+		 #serverData {
+     width: 100px;
+			height: 100px;
+			background: red;
+			position: relative;
+			animation: mymove 1s infinite;
+		}
+
+		@keyframes mymove {
+			from {left: 0px;}
+			to {left: 200px;}
+		}
+
+		@keyframes mynewmove {
+			from {top: 0px;}
+			to {top: 200px;}
+		}
+
+    red {
+      color: red;
+    }
+    .class1 {
+      color: orange;
+    }
+    .class2 {
+      color: yello;
+    }
+    .class3 {
+      color: white;
+    }
+    .class4 {
+      color: green;
+    }
+    .class5 {
+      color: blue;
+    }
+    .class6 {
+      color: purple;
+    }
+    .class7 {
+      color: brown;
+    }
+    .class8 {
+      color: pink;
+    }
+    .class9 {
+      color: gray;
+    }
+  </style>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//functions here
+		let eventSource = new EventSource("http://localhost:1080/stream");
+
+		console.log(eventSource.withCredentials);
+		console.log(eventSource.readyState);
+		console.log(eventSource.url);
+
+		eventSource.onopen = function(event){
+			 document.getElementById("result").innerHTML = "opened";
+		};
+		eventSource.onmessage = function(event) {
+			 document.getElementById("result").innerHTML = event.data;
+		};
+		eventSource.onerror = function(event){
+			 document.getElementById("result").innerHTML = "error";
+		};
+
+		eventSource.addEventListener('number', event => {
+      console.log("New message number", event.data);
+      var obj = JSON.parse(event.data);
+
+  var selectedLiIndex = Math.random() * 5
+  var ul = document.getElementById("winnings");
+  if (ul.children.length > 5) {
+    ul.children[0].remove();
+  }
+  var li = document.createElement("li");
+  li.className = "class" + obj.x;
+  li.appendChild(document.createTextNode(obj.x));
+  ul.appendChild(li);
+      document.getElementById("result").innerHTML = obj.x ;
+console.log(obj.x);
+      document.getElementById("result").height = obj.x + Math.random() * 10;;
+      document.getElementById("result").width = obj.x + Math.random() * 10;;
+console.log(document.getElementById(obj.i));
+      document.getElementById("r2").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r2").height);
+      document.getElementById("r3").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r3").height);
+      document.getElementById("r4").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r4").height);
+      document.getElementById("r5").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r5").height);
+      document.getElementById("r6").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r6").height);
+      document.getElementById("r7").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r7").height);
+      document.getElementById("r8").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r8").height);
+      document.getElementById("r9").height = obj.x + Math.random() * 10;;
+console.log(document.getElementById("r9").height);
+		});
+		eventSource.addEventListener('temp', event => {
+			console.log("New message temp", event.data);
+      document.getElementById("temp").innerHTML = event.data;
+		});
+		eventSource.addEventListener('eventName', event => {
+			console.log("New message eventName", event.data);
+      document.getElementById("eventName").innerHTML = event.data;
+		});
+
+		// or eventSource.addEventListener('message', ...)
+		function myFunction() {
+			document.getElementById("serverData").style.animation = `mynewmove 4s 2`;
+		}
+	</script>
+  <div class="serverData" id="serverData">Here is where the server sent data will appear <p>Click the "Try it" button to change the value of the animation property.</p>
+  <textarea id="result" class="result" name="result">result</textarea>
+ 
+  <ul id="winnings" class="winnings">
+    <li id="li0">li 0</li>
+
+  </ul>
+  <svg id="number" class="svg1 width="500" height="100">
+    <g><rect x="5" y="0"  class="rect" id="r0" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="10" y="0"  class="rect" id="r1" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="15" y="0"  class="rect" id="r2" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="20" y="0"  class="rect" id="r3" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="25" y="0"  class="rect" id="r4" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="30" y="0"  class="rect" id="r5" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="35" y="0"  class="rect" id="r6" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="40" y="0"  class="rect" id="r7" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect  x="45" y="0" class="rect" id="r8" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+    <g><rect x="50" y="0"  class="rect" id="r9" width="5" height="100" style="fill:rgb(0,0,255);stroke-width:1;stroke:rgb(0,0,0)"></g>
+  </svg>
+<button onclick="myFunction()">Try it</button></div>
+</body>
+</html>

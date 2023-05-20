@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Message div</title>
+</head>
+<body>
+
+	<script type="text/javascript">
+		//functions here
+    document.body.
+		let eventSource = new EventSource("http://localhost:1080/stream");
+
+		eventSource.onopen = function(event){
+			 document.getElementById("result").innerHTML = "opened";
+		};
+		eventSource.onmessage = function(event) {
+			 document.getElementById("result").innerHTML = event.data;
+		};
+		eventSource.onerror = function(event){
+			 document.getElementById("result").innerHTML = "error";
+		};
+
+		eventSource.addEventListener('number', event => {
+      console.log("New message number", event.data);
+      var obj = JSON.parse(event.data);
+
+		eventSource.addEventListener('message', event => {
+      console.log("New message ", event.data);
+      var obj = JSON.parse(event.data);
+
+	</script>
+</body>
+</html>
