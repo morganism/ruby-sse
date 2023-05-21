@@ -1,5 +1,5 @@
-import Chart from 'chart.js/auto'
-import { getDimensions } from './api'
+import Chart from './chart.js'
+import { getDimensions } from 'chart.js/api'
 
 (async function() {
   const data = await getDimensions();
